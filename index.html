@@ -1,17 +1,18 @@
- <html>
-  <!DOCTYPE html>
+ <!DOCTYPE html>
+<html lang="en">
+<head>
  <!--
  Program Name: patient-form.html
  Author: Jaiden Boyd
  Date Created: 2025-09-18
- Date last edited: 2025-09-26
- Version: 1.3
- Description: MIS 3371 Homework 1
+ Date last edited: 2025-12-3
+ Version: 1.8
+ Description: MIS 3371 Homework 4
  -->
- <html lang="en">
- <head>
-   <link rel="stylesheet" href="style.css"> 
-   <!-- links to css file-->
+<meta charset="UTF-8">
+<title>Aquamarine Medical - Patient Registration</title>
+<link rel="stylesheet" href="style-4.css"> 
+<!-- links to css file-->
  </head>
  <body>
   <header>
@@ -24,28 +25,50 @@
   
   </td>
   <td valign="bottom" align="right" width="20%">
-  <p>Today's Date: Friday, Sept 26nd, 2025 <span id="today"></span></p>
+  <p>Today's Date: <span id="today"></span></p>
   </td>
   </tr>
     </table>
 </header>
  <div id="main">
 <h2>Patient Registration Form </h2>
+<iframe 
+  src="https://www.cdc.gov"
+  width="100%"
+  height="200"
+  style="border:2px solid black;"
+></iframe>
+
 <form action="thankyou.html">
   <center>
 <div class="format">
+
+<span id="welcome1"></span><br>
+<label id="newUserArea" style="display:none;">
+  <input type="checkbox" id="newUserCheck">
+   <span id="newUserText"></span>
+</label>
+
 <table>
 <tr>
   <td>
     <div style="display:flex; gap:10px; align-items:center;">
       <label for="fname">First Name:</label>
-      <input type="text" name="fname" id="fname" maxlength="30">
+      <input type="text" name="fname" id="fname" minlength="1" maxlength="30" required 
+      title="Letter, apostrophes, and dashes only" pattern="[a-zA-Z']{1,30}"
+      onblur="validateFname()">
+      <span class="error" id="fname-error"></span>
 
+      
       <label for="minitial">Middle Initial:</label>
-      <input type="text" name="mname" id="minitial" maxlength="1">
+      <input type="text" name="mname" id="minitial" maxlength="1" title="Letters only"
+      pattern="[a-zA-Z']{0,1}" onblur="validateMinitial()">
+      <span class="error" id="minitial-error"></span>
 
       <label for="lname">Last Name:</label>
-      <input type="text" name="lname" id="lname" maxlength="30">
+      <input type="text" name="lname" id="lname" minlength="1" maxlength="30" required title="Letter, apostrophes, and dashes only"
+       pattern="[a-zA-Z']{1,30}" onblur="validateLname()">
+      <span class="error" id="lname-error"></span>
     </div>
   </td>
 </tr>
@@ -54,94 +77,47 @@
     <label for="dob">Date of Birth:</label>
   </td>
   <td>
-    <input type="text" name="dob" id="dob" placeholder="MM/DD/YYYY" title="Enter date as MM/DD/YYYY">
+    <input type="text" name="dob" id="dob" placeholder="MM/DD/YYYY" title="Enter date as MM/DD/YYYY" onblur="validateDob()" required>
+    <span class="error" id="dob-error"></span>
   </td>
   </tr>
   <td>
     <label for="ssn">Social Security Number:</label>
   </td>
   <td>
-    <input type="password" name="ssn" id="ssn" title="Enter date social security number" maxlength="11">
+    <input type="password" name="ssn" id="ssn" title="Enter date social security number" maxlength="11" onblur="validateSsn()">
+    <span class="error" id="ssn-error"></span>
   </td>
   </tr>
   <td>
     <label for="address1">Address Line 1:</label>
   </td>
   <td>
-    <input type="text" name="address1" id="address1" title="Enter Adress Line 1" maxlength="30">
+    <input type="text" name="address1" id="address1" title="Enter Adress Line 1" placeholder="Required" minlength="2" maxlength="30" onblur="validateAddress1"() required>
+    <span class="error" id="address1-error"></span>
   </td>
   </tr>
 <td>
     <label for="address2">Address Line 2:</label>
   </td>
   <td>
-    <input type="text" name="address2" id="address2" title="Enter Address Line 2" maxlength="30">
+    <input type="text" name="address2" id="address2" title="Enter Address Line 2" minlength="2" maxlength="30" onblur="validateAddress2()">
   </td>
 </tr>
 <tr>
 <td>
   <div style="display:flex; gap:10px; align-items:center;">
   <label for="city">City:</label>
-  <input type="text" name="city" id="city" title="Enter City" maxlength="30">
+  <input type="text" name="city" id="city" title="Enter City" placeholder="Required" minlength="2" maxlength="30" required>
   
-  <label for="state">State:</label>
-  <select>
-  <option selected disabled>Please Select One</option>
-  <option value="AL">Alabama</option>
-  <option value="AK">Alaska</option>
-  <option value="AZ">Arizona</option>
-  <option value="AR">Arkansas</option>
-  <option value="CA">California</option>
-  <option value="CO">Colorado</option>
-  <option value="CT">Connecticut</option>
-  <option value="DE">Delaware</option>
-  <option value="FL">Florida</option>
-  <option value="GA">Georgia</option>
-  <option value="HI">Hawaii</option>
-  <option value="ID">Idaho</option>
-  <option value="IL">Illinois</option>
-  <option value="IN">Indiana</option>
-  <option value="IA">Iowa</option>
-  <option value="KS">Kansas</option>
-  <option value="KY">Kentucky</option>
-  <option value="LA">Louisiana</option>
-  <option value="ME">Maine</option>
-  <option value="MD">Maryland</option>
-  <option value="MA">Massachusetts</option>
-  <option value="MI">Michigan</option>
-  <option value="MN">Minnesota</option>
-  <option value="MS">Mississippi</option>
-  <option value="MO">Missouri</option>
-  <option value="MT">Montana</option>
-  <option value="NE">Nebraska</option>
-  <option value="NV">Nevada</option>
-  <option value="NH">New Hampshire</option>
-  <option value="NJ">New Jersey</option>
-  <option value="NM">New Mexico</option>
-  <option value="NY">New York</option>
-  <option value="NC">North Carolina</option>
-  <option value="ND">North Dakota</option>
-  <option value="OH">Ohio</option>
-  <option value="OK">Oklahoma</option>
-  <option value="OR">Oregon</option>
-  <option value="PA">Pennsylvania</option>
-  <option value="RI">Rhode Island</option>
-  <option value="SC">South Carolina</option>
-  <option value="SD">South Dakota</option>
-  <option value="TN">Tennessee</option>
-  <option value="TX">Texas</option>
-  <option value="UT">Utah</option>
-  <option value="VT">Vermont</option>
-  <option value="VA">Virginia</option>
-  <option value="WA">Washington</option>
-  <option value="WV">West Virginia</option>
-  <option value="WI">Wisconsin</option>
-  <option value="WY">Wyoming</option>
-  <option value="DC">District of Columbia</option>
-  <option value="PR">Puerto Rico</option>
+<label for="state">State:</label>
+<select id="state" name="state">
+<option value="">Please Select One</option>
 </select>
+
   <label for="zipcode">Zipcode:</label>
-  <input type="text" name="zipcode" id="zipcode" title="Enter Zipcode" maxlength="10" pattern="[0-9]*">
+  <input type="text" name="zipcode" id="zipcode" title="Enter Zipcode" placeholder="Required" minlength="5" maxlength="10" pattern="^\d{5}(-\d{4})?$" onblur="validateZcode()" required>
+  <span class="error" id="zcode-error"></span>
       </div>
     </td>
 </tr>
@@ -149,7 +125,8 @@
     <label for="eaddress">Email Address:</label>
   </td>
   <td>
-    <input type="text" name="eaddress" id="emaddress" title="Enter Email Address" placeholder="name@domain.tld">
+    <input type="text" name="eaddress" id="emaddress" title="Enter Email Address" placeholder="name@domain.tld" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,20}$" onblur="validateEmail()">
+    <span id="email-error" class="error"></span>
   </td>
   </tr>
 <tr>
@@ -187,45 +164,82 @@
 <tr>
     <td class="td1"><label for="range">How is your health?<br/>(Rate from 1 to 10)</label></td>
     <td>
-	    <input type="range" name="range" id="range" min="1" max="10" value="0"/>
-      <span id="range-slider"></span>
+<tr>
+  <td><label for="comments">Optional notes or comments: </label></td>
+  <td>
+	    <input type="range" name="range" id="range" min="1" max="10" value="0" oninput="document.getElementById('range-slider').textContent = this.value">
+        <span id="range-slider">5</span>
+      <textarea name="comments" id="comments" rows="4" cols="40" placeholder="Enter any relevant medical history, symptoms, or concerns here..." minlength="5"
+      maxlength="500" title="You can write up to 500 characters.">
+    </textarea>
     </td>
  </tr>
 <tr>
     <td><label for="uid">User ID:</label></td>
     <td>
-     <input type="text" name="uid id="uid" maxlength="20" placeholder="User ID"/>
+     <input type="text" name="uid" id="uid" minlength="5" maxlength="20" placeholder="User ID" title="Choose a user ID (5-30 characters, no spaces)" pattern="^[A-Za-z_][0-9_-]{4,29}$" />
     </td>
 </tr>
 <tr>
     <td><label for="password">Password:</label></td>
     <td>
-     <input type="password" name="password" id="password" maxlength="20" placeholder="Password"/>
+     <input type="password" name="password" id="password" title="Enter a strong password (8-30 chars, at least one uppercase, number, and symbol)" minlength="8" maxlength="20" placeholder="Password" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#\$%\^&\*_\-]).{8,30}$"
+      onblur="validatePassword()" oninput="validatePassword()" onfocus="validatePassword()" required/>
     </td>
 </tr>
 <tr>
     <td><label for="rpassword">Re-enter Password:</label></td>
     <td>
-     <input type="password" name="rpassword id="rpassword" maxlength="20" placeholder="Re-enter Password"/>
+     <input type="password" name="rpassword" id="rpassword" minlength="8" maxlength="20" placeholder="Re-enter Password" onblur="confirmPassword()"
+     oninput="confirmPassword()" onfocus="confirmPassword()"/>
     </td>
 </tr>
 <tr>
     <td colspan="4">
         <center>
-            <input type="submit" name="submit">
+            <input type="submit" name="validate" id="validate" value="Validate" style="Arial;" onclick="validateEverything()">
             <input type="reset" name="reset">
+            <input type="button" name="review" id="review" value="Review" onclick="reviewInput()"/>
         </center>
     </td>
+    <div class="pword-message">
+    <span id="msg1"></span> <br/>
+    <span id="msg2"></span> <br/>
+    <span id="msg3"></span> <br/>
+    <span id="msg4"></span> <br/>
+    </div>
+    <tr>
+    <td class="td1">
+        <label for="remember-me">Remember Me:</label>
+    </td>
+    <td>
+        <input
+            type="checkbox"
+            id="remember-me"
+            name="remember-me"
+            checked
+        />
+    </td>
+</tr>
+
+<center>
+    <p id="showInput"></p>
+</center>
 </tr>
 </table>
 </div>
 </form>
-
 <footer>
   <div class="footer"> 
   <p>&#169; Aquamarine Medical |  <a href="contact.html">Contact Us!</a></p>
 </div>
+<div id="alert-box">
+    <div id="alert-content">
+        <h4>Please fill out all required fields. </h4>
+        <button id="close-alert">OK</button>
+    </div>
+</div>
 </footer>
-<script src="hw1.js"></script> 
+<script src="hw4.js"></script> 
 </body>
- </html>
+</html>
